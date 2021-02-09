@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import Header from "./components/Header";
 import Router from "./routes/Router";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
 
   return (
     <ChakraProvider theme={pokeTheme}>
+      <Header />
       <Router />
     </ChakraProvider>
   );

@@ -7,7 +7,14 @@ import { goHome } from "../routes/Coordinator";
 const DetailPage = () => {
   const history = useHistory();
   return (
-    <Flex as="main" h="80vh" w="100vw" justify="center" align="center">
+    <Flex
+      as="main"
+      h="80vh"
+      w="100vw"
+      direction="column"
+      justify="center"
+      align="center"
+    >
       <Heading>DetailPage</Heading>
       <Button
         onClick={() => goHome(history)}
@@ -21,3 +28,33 @@ const DetailPage = () => {
 };
 
 export default DetailPage;
+
+// {pokemon.sprites && (
+//   <div>
+//     <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+//     <img src={pokemon.sprites.back_default} alt={pokemon.name} />
+//   </div>
+// )}
+// <div>
+//   <Text>
+//     Type:{" "}
+//     {pokemon.types && (
+//       <span>
+//         {pokemon.types[0].type.name}{" "}
+//         {pokemon.types[1] && " & " + pokemon.types[1].type.name}
+//       </span>
+//     )}
+//   </Text>
+//   <Text>Weight: {pokemon.weight}kg</Text>
+//   <Text>Height: {pokemon.height}"</Text>
+//   <Text>Moves:</Text>
+//   {pokemon.moves ? (
+//     <List>
+//       <ListItem>{pokemon.moves[0].move.name}</ListItem>
+//       <ListItem>{pokemon.moves[1].move.name}</ListItem>
+//       <ListItem>{pokemon.moves[2].move.name}</ListItem>
+//       <ListItem>{pokemon.moves[3].move.name}</ListItem>
+//     </List>
+//   ) : (
+//     ""
+//   )}
