@@ -6,6 +6,15 @@ import { goHome } from "../routes/Coordinator";
 
 const DetailPage = () => {
   const history = useHistory();
+
+  // TO DO: GET POKEMON BY ID
+
+  // TO DO: USEEFFECT GET POKEMON BY ID
+
+  // TO DO: ADD POKEMON TO POKEDEX
+
+  // TO DO: REMOVE POKEMON FROM POKEDEX
+
   return (
     <Flex
       as="main"
