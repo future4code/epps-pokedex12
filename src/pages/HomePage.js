@@ -8,26 +8,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CardPokemon from "../components/CardPokemon";
 
-// import Btn from "../components/sample/Button";
+import Btn from "../components/sample/Button";
 
 const HomePage = () => {
   const history = useHistory();
   const [pokeList, setPokeList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
   // TO DO: LOADING STATE
-
-  // TO DO: GETPOKEMONLIST
-
-  // TO DO: USEEFFECT POKEMONLIST
+  const [isLoading, setIsLoading] = useState(false)
 
   // TO DO: ADD TO POKEDEX
 
-  // TO DO: GO TO POKEMON DETAILS
-
-  // TO DO: LOADING SPINNER
-
-  useEffect(() => { getPokemons() }, []);
-
+  // TO DO: GETPOKEMONLIST
   const getPokemons = async () => {
     setIsLoading(true)
     try {
@@ -40,6 +31,10 @@ const HomePage = () => {
     };
 
   };
+  // TO DO: USEEFFECT POKEMONLIST
+  useEffect(() => { getPokemons() }, []);
+  
+  // TO DO: GO TO POKEMON DETAILS
 
   const showPokeList = pokeList
 
@@ -52,13 +47,12 @@ const HomePage = () => {
       justify="center"
       align="center"
     >
-      {/* <Heading>HomePage</Heading>
-      <Button variant="outline" onClick={() => goToPokedex(history)}>
-        pokéDex
-      </Button> */}
+      <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
       {isLoading ? <Spinner/>: showPokeList.map((pokemon) => {
         return <CardPokemon key={pokemon.nome} pokemon={pokemon} />
       })}
+      
+
     </Flex>
   );
 };
