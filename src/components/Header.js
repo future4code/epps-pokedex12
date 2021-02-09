@@ -2,10 +2,16 @@ import React from "react";
 
 import { Flex, Heading } from "@chakra-ui/react";
 
-const Header = () => {
+const Header = ({ children }) => {
   return (
-    <Flex as="header" direction="column" justify="center" align="center">
-      <Heading>header</Heading>
+    <Flex
+      as="header"
+      w="100%"
+      direction="column"
+      justify="center"
+      align="center"
+    >
+      {children}
     </Flex>
   );
 };

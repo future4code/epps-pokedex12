@@ -1,42 +1,45 @@
-import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 
 import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
-import { BASE_URL } from "../parameters"
+import { BASE_URL } from "../parameters";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CardPokemon from "../components/CardPokemon";
 
 import Btn from "../components/sample/Button";
 
+import Header from "../components/Header";
+
 const HomePage = () => {
   const history = useHistory();
   const [pokeList, setPokeList] = useState([]);
   // TO DO: LOADING STATE
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   // TO DO: ADD TO POKEDEX
 
   // TO DO: GETPOKEMONLIST
   const getPokemons = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/?limit=20`)
+      const response = await axios.get(`${BASE_URL}/?limit=20`);
       console.log(response.data.results);
       setPokeList(response.data.results);
-      setIsLoading(false)
-    }catch (err) {
+      setIsLoading(false);
+    } catch (err) {
       console.log(err);
-    };
-
+    }
   };
   // TO DO: USEEFFECT POKEMONLIST
-  useEffect(() => { getPokemons() }, []);
-  
+  useEffect(() => {
+    getPokemons();
+  }, []);
+
   // TO DO: GO TO POKEMON DETAILS
 
-  const showPokeList = pokeList
+  const showPokeList = pokeList;
 
   return (
     <Flex
@@ -47,12 +50,18 @@ const HomePage = () => {
       justify="center"
       align="center"
     >
-      <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
-      {isLoading ? <Spinner/>: showPokeList.map((pokemon) => {
-        return <CardPokemon key={pokemon.nome} pokemon={pokemon} />
-      })}
-      
-
+      <Header>
+        <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
+      </Header>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        // <Box h="100%">
+        showPokeList.map((pokemon) => {
+          return <CardPokemon key={pokemon.nome} pokemon={pokemon} />;
+        })
+        // </Box>
+      )}
     </Flex>
   );
 };
