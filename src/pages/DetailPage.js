@@ -1,15 +1,46 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Text,
+  Image,
+  Spinner,
+  Box,
+  List,
+  ListItem,
+} from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import Details from "../components/Details";
 
 import { goHome } from "../routes/Coordinator";
 
-const DetailPage = () => {
+const DetailPage = (props) => {
   const history = useHistory();
+  const pathParams = useParams();
+  const [pokemon, setPokemon] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   // TO DO: GET POKEMON BY ID
+  const getPokemon = async (pokeName) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
+      );
+      setPokemon(response.data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // TO DO: USEEFFECT GET POKEMON BY ID
+  useEffect(() => {
+    getPokemon(pathParams.pokeName);
+  }, []);
 
   // TO DO: ADD POKEMON TO POKEDEX
 
@@ -32,6 +63,52 @@ const DetailPage = () => {
       >
         Home
       </Button>
+
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Flex direction="column">
+          <Text>{pokemon.name}</Text>
+          <Text>{pokemon.weight}</Text>
+          <Text>{pokemon.height}</Text>
+          {pokemon.stats &&
+            pokemon.stats.map((stat) => {
+              return (
+                <Text>
+                  {stat.stat.name}: {stat.base_stat}
+                </Text>
+              );
+            })}
+          {pokemon.sprites && (
+            <Flex>
+              <Image maxW="500px" src={pokemon.sprites.front_default} />
+              <Image maxW="500px" src={pokemon.sprites.back_default} />
+            </Flex>
+          )}
+
+          <Text>
+            Type:{" "}
+            {pokemon.types && (
+              <span>
+                {pokemon.types[0].type.name}{" "}
+                {pokemon.types[1] && " & " + pokemon.types[1].type.name}
+              </span>
+            )}
+          </Text>
+
+          {pokemon.moves ? (
+            <List>
+              <ListItem>{pokemon.moves[0].move.name}</ListItem>
+              <ListItem>{pokemon.moves[1].move.name}</ListItem>
+              <ListItem>{pokemon.moves[2].move.name}</ListItem>
+              <ListItem>{pokemon.moves[3].move.name}</ListItem>
+            </List>
+          ) : (
+            <Spinner />
+          )}
+        </Flex>
+      )}
+      <Details />
     </Flex>
   );
 };
