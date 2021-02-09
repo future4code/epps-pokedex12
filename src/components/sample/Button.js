@@ -4,7 +4,7 @@ import { Button as ChakraButton } from "@chakra-ui/react";
 
 const Button = (props) => {
   return (
-    <ChakraButton bgColor="tomato" onClick={props.goTo}>
+    <ChakraButton colorScheme="red" marginY={4} onClick={props.goTo}>
       {props.children}
     </ChakraButton>
   );

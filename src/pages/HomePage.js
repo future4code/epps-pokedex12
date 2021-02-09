@@ -25,13 +25,13 @@ const HomePage = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(`${BASE_URL}/?limit=20`);
-      console.log(response.data.results);
       setPokeList(response.data.results);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
+
   // TO DO: USEEFFECT POKEMONLIST
   useEffect(() => {
     getPokemons();
@@ -54,13 +54,11 @@ const HomePage = () => {
         <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
       </Header>
       {isLoading ? (
-        <Spinner />
+        <Spinner size="xl" />
       ) : (
-        // <Box h="100%">
         showPokeList.map((pokemon) => {
           return <CardPokemon key={pokemon.nome} pokemon={pokemon} />;
         })
-        // </Box>
       )}
     </Flex>
   );
