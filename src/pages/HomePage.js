@@ -41,6 +41,10 @@ const HomePage = () => {
 
   const showPokeList = pokeList;
 
+  const filteredPokeList = showPokeList
+    .sort(() => Math.random() - Math.random())
+    .slice(0, showPokeList.length);
+
   return (
     <Flex
       as="main"
@@ -56,7 +60,7 @@ const HomePage = () => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : (
-        showPokeList.map((pokemon) => {
+        filteredPokeList.map((pokemon) => {
           return <CardPokemon key={pokemon.nome} pokemon={pokemon} />;
         })
       )}

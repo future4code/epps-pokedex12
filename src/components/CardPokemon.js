@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Box, Flex, IconButton, Image, Spinner } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Image } from "@chakra-ui/react";
 
 import { CgEye, CgPokemon } from "react-icons/cg";
 
