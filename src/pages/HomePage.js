@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
 
-// import Btn from "../components/sample/Button";
+import Btn from "../components/sample/Button";
 
 const HomePage = () => {
   const history = useHistory();
@@ -30,10 +30,7 @@ const HomePage = () => {
       align="center"
     >
       <Heading>HomePage</Heading>
-      <Button variant="outline" onClick={() => goToPokedex(history)}>
-        pokéDex
-      </Button>
-      {/* <Btn onClick={() => goToPokedex(history)}>pokéDex</Btn> */}
+      <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
     </Flex>
   );
 };

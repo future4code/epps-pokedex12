@@ -8,12 +8,6 @@ const PokedexPage = () => {
   const history = useHistory();
   // TO DO: LOADING STATE
 
-  // TO DO: GET POKEMON BY ID
-
-  // TO DO: USEEFFECT GET POKEMON
-
-  // TO DO: REMOVE POKEMON FROM POKEDEX
-
   // TO DO: GO TO POKEMON DETAILS
 
   // TO DO: LOADING SPINNER
