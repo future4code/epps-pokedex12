@@ -74,15 +74,15 @@ const DetailPage = (props) => {
           {pokemon.stats &&
             pokemon.stats.map((stat) => {
               return (
-                <Text>
+                <Text key={stat.stat.name}>
                   {stat.stat.name}: {stat.base_stat}
                 </Text>
               );
             })}
           {pokemon.sprites && (
             <Flex>
-              <Image maxW="500px" src={pokemon.sprites.front_default} />
-              <Image maxW="500px" src={pokemon.sprites.back_default} />
+              <Image src={pokemon.sprites.front_default} />
+              <Image src={pokemon.sprites.back_default} />
             </Flex>
           )}
 
