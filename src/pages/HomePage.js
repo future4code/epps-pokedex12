@@ -42,10 +42,10 @@ const HomePage = () => {
   };
 
   // TO DO: USEEFFECT POKEMONLIST
-  useEffect(() => {
-    requests.getPokemons();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   requests.getPokemons();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // TO DO: GO TO POKEMON DETAILS
 
@@ -71,6 +71,7 @@ const HomePage = () => {
                 key={pokemon.name}
                 pokemon={pokemon}
                 addToPokedex={() => addToPokedex(pokemon)}
+                visible={false}
               />
             );
           })}

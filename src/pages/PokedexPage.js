@@ -35,6 +35,14 @@ const PokedexPage = (props) => {
     }
   };
 
+  // const removePokemon=(poke)=>{
+  //   setters.setPokedex(
+  //     states.pokemons.filter((pokemon) => {
+  //       return pokemon.name !== poke.name;
+  //     })
+  //   )
+  // }
+
   return (
     <Flex
       as="main"
@@ -64,6 +72,7 @@ const PokedexPage = (props) => {
                   key={pokemon.url}
                   pokemon={pokemon}
                   onClick={() => addToPokedex(pokemon)}
+                  visible={true}
                 />
               );
             })

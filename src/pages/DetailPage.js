@@ -44,8 +44,8 @@ const DetailPage = (props) => {
 
   // TO DO: REMOVE POKEMON FROM POKEDEX
 
-  const pokeName = pokemon.name;
-  const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
+  //  const pokeName = pokemon.name;
+  //  const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
 
   return (
     <Flex
@@ -76,8 +76,7 @@ const DetailPage = (props) => {
           align="center"
         >
           <Heading as="h2" fontSize="2xl" my={4}>
-            {capName && capName}
-            {pokemon.name}
+            {pokemon.name&&pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
           </Heading>
 
           {pokemon.sprites && (
