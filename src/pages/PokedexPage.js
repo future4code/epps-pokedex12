@@ -19,28 +19,38 @@ const PokedexPage = (props) => {
   return (
     <Flex
       as="main"
-      h="80vh"
+      h="100vh"
       w="100vw"
-      flexWrap="wrap"
-      justify="center"
+      direction="column"
+      justify="space-between"
       align="center"
     >
       <Header>
         <Btn goTo={() => goHome(history)}>pokemons</Btn>
       </Header>
-      {isLoading ? (
-        <Spinner size="xl" />
-      ) : (
-        pokedex.map((pokemon) => {
-          return (
-            <CardPokemon
-              key={pokemon.nome}
-              pokemon={pokemon}
-              onClick={props.addToPokedex}
-            />
-          );
-        })
-      )}
+      <Flex
+        h="100%"
+        w="100%"
+        flexWrap="wrap"
+        alignItems="flex-start"
+        justify="center"
+      >
+        <>
+          {isLoading ? (
+            <Spinner size="xl" />
+          ) : (
+            pokedex.map((pokemon) => {
+              return (
+                <CardPokemon
+                  key={pokemon.nome}
+                  pokemon={pokemon}
+                  onClick={props.addToPokedex}
+                />
+              );
+            })
+          )}
+        </>
+      </Flex>
     </Flex>
   );
 };

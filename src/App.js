@@ -10,8 +10,13 @@ const App = () => {
           margin: 0,
           padding: 0,
           borderBox: "box-sizing",
-          fontFamily: "Helvetica, sans-serif",
+          fontFamily: "Cutive Mono",
         },
+      },
+    },
+    fonts: {
+      heading: {
+        fontFamily: "Cutive Mono",
       },
     },
   });

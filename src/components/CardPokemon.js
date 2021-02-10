@@ -1,7 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Box, Flex, IconButton, Image, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Image,
+  Spinner,
+} from "@chakra-ui/react";
 import { CgEye, CgPokemon } from "react-icons/cg";
 import { goToDetails } from "../routes/Coordinator";
 
@@ -31,15 +38,22 @@ const CardPokemon = (props) => {
         ""
       ) : (
         <Box
-          borderWidth="1px"
-          borderRadius="lg"
           padding="10px"
           margin="10px"
           maxW="200px"
-          maxH="300px"
+          maxH="200px"
+          borderWidth="1px"
+          borderRadius="lg"
           align="center"
+          boxShadow="1px 1px 8px #ddd"
+          transition="box-shadow 150ms ease"
+          _hover={{
+            boxShadow: "1px 1px 10px #ccc",
+          }}
         >
-          <p>{props.pokemon.name}</p>
+          <Heading as="h4" fontSize="1.3rem">
+            {props.pokemon.name}
+          </Heading>
           {pokemon.sprites && (
             <Image src={pokemon.sprites.front_default} alt="" />
           )}

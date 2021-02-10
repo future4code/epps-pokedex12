@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
 
 import { useHistory } from "react-router-dom";
 
@@ -28,6 +28,7 @@ const HomePage = (props) => {
     pokeTrash(newPokemon.name);
     // removeFromPokelist(newPokemon.name);
     alert(`${newPokemon.name} was successfully added to your PokéDex!`);
+    getPokemons();
   };
 
   const removeFromPokelist = (name) => {
@@ -72,7 +73,7 @@ const HomePage = (props) => {
         );
       });
   };
-  const showPokeList = pokeTrash;
+  const showPokeList = pokeList;
 
   const filteredPokeList = showPokeList
     .sort(() => Math.random() - Math.random())
@@ -94,7 +95,15 @@ const HomePage = (props) => {
         <Spinner size="xl" />
       ) : (
         <>
-          {pokeTrash()}
+          {filteredPokeList.map((pokemon) => {
+            return (
+              <CardPokemon
+                key={pokemon.nome}
+                pokemon={pokemon}
+                addToPokedex={() => addToPokedex(pokemon)}
+              ></CardPokemon>
+            );
+          })}
           {/* {pokeTrash
             ? pokeTrash.map((pokemon) => {
                 return (
