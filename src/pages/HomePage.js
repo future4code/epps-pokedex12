@@ -23,19 +23,14 @@ const HomePage = (props) => {
 
   // TO DO: ADD TO POKEDEX
   const addToPokedex = (newPokemon) => {
-    const newPokedex = [...pokedex, newPokemon];
-    setPokedex(newPokedex);
-    pokeTrash(newPokemon.name);
-    // removeFromPokelist(newPokemon.name);
-    alert(`${newPokemon.name} was successfully added to your PokéDex!`);
-    getPokemons();
-  };
-
-  const removeFromPokelist = (name) => {
-    // const index = pokeTrash.findIndex((pokemon) => pokemon.name === name);
-    // //setPokeTrash(pokeList);
-    // pokeTrash.splice(index, 1);
-    // getPokemons();
+    const index = pokedex.findIndex((pokemon) => { return pokemon.name === newPokemon.name })
+    if (index === -1) {
+      const newPokedex = [...pokedex, newPokemon];
+      setPokedex(newPokedex);
+      pokeTrash(newPokemon.name);
+      alert(`${newPokemon.name} was successfully added to your PokéDex!`);
+      // getPokemons();
+    }
   };
 
   // TO DO: GETPOKEMONLIST
@@ -59,25 +54,28 @@ const HomePage = (props) => {
   // TO DO: GO TO POKEMON DETAILS
 
   const pokeTrash = (name) => {
-    pokeList
-      .filter((pokemon) => {
+  
+    setPokeList(
+      pokeList.filter((pokemon) => {
         return pokemon.name !== name;
-      })
-      .map((pokemon) => {
-        return (
-          <CardPokemon
-            key={pokemon.nome}
-            pokemon={pokemon}
-            addToPokedex={() => addToPokedex(pokemon)}
-          ></CardPokemon>
-        );
-      });
-  };
-  const showPokeList = pokeList;
+      }))
+      
+      // pokeList.map((pokemon) => {
+      //   return (
+      //     <CardPokemon
+      //     key={pokemon.nome}
+      //     pokemon={pokemon}
+      //     addToPokedex={() => addToPokedex(pokemon)}
+      //     ></CardPokemon>
+      //     );
+      //   });
 
-  const filteredPokeList = showPokeList
+        console.log(pokeList)
+  };
+
+  const filteredPokeList = pokeList
     .sort(() => Math.random() - Math.random())
-    .slice(0, showPokeList.length);
+    .slice(0, pokeList.length);
 
   return (
     <Flex
@@ -94,17 +92,17 @@ const HomePage = (props) => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : (
-        <>
-          {filteredPokeList.map((pokemon) => {
-            return (
-              <CardPokemon
-                key={pokemon.nome}
-                pokemon={pokemon}
-                addToPokedex={() => addToPokedex(pokemon)}
-              ></CardPokemon>
-            );
-          })}
-          {/* {pokeTrash
+          <>
+            {filteredPokeList.map((pokemon) => {
+              return (
+                <CardPokemon
+                  key={pokemon.url}
+                  pokemon={pokemon}
+                  addToPokedex={() => addToPokedex(pokemon)}
+                ></CardPokemon>
+              );
+            })}
+            {/* {pokeTrash
             ? pokeTrash.map((pokemon) => {
                 return (
                   <CardPokemon
@@ -125,8 +123,8 @@ const HomePage = (props) => {
                   </CardPokemon>
                 );
               })} */}
-        </>
-      )}
+          </>
+        )}
     </Flex>
   );
 };
