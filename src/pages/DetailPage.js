@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   Heading,
   Text,
@@ -12,8 +11,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
+import Header from "../components/Header";
 
-import { goHome } from "../routes/Coordinator";
+import Btn from "../components/sample/Button";
+
+import { goHome, goToPokedex } from "../routes/Coordinator";
 
 const DetailPage = (props) => {
   const history = useHistory();
@@ -40,13 +42,6 @@ const DetailPage = (props) => {
     getPokemon(pathParams.pokeName);
   }, [pathParams.pokeName]);
 
-  // TO DO: ADD POKEMON TO POKEDEX
-
-  // TO DO: REMOVE POKEMON FROM POKEDEX
-
-  //  const pokeName = pokemon.name;
-  //  const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
-
   return (
     <Flex
       as="main"
@@ -56,14 +51,10 @@ const DetailPage = (props) => {
       justify="center"
       align="center"
     >
-      <Heading>DetailPage</Heading>
-      <Button
-        onClick={() => goHome(history)}
-        variant="outline"
-        colorScheme="grey"
-      >
-        Home
-      </Button>
+      <Header>
+        <Btn goTo={() => goHome(history)}>Home</Btn>
+        <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
+      </Header>
 
       {isLoading ? (
         <Spinner size="xl" />
@@ -76,7 +67,8 @@ const DetailPage = (props) => {
           align="center"
         >
           <Heading as="h2" fontSize="2xl" my={4}>
-            {pokemon.name&&pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
+            {pokemon.name &&
+              pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
           </Heading>
 
           {pokemon.sprites && (
