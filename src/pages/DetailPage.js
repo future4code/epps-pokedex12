@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   Spinner,
-  Box,
   List,
   ListItem,
 } from "@chakra-ui/react";
@@ -13,7 +12,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
-import Details from "../components/Details";
 
 import { goHome } from "../routes/Coordinator";
 
@@ -46,8 +44,8 @@ const DetailPage = (props) => {
 
   // TO DO: REMOVE POKEMON FROM POKEDEX
 
-  // const pokeName = pokemon.name;
-  // const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
+  const pokeName = pokemon.name;
+  const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
 
   return (
     <Flex
@@ -78,7 +76,7 @@ const DetailPage = (props) => {
           align="center"
         >
           <Heading as="h2" fontSize="2xl" my={4}>
-            {/* {pokemon.name && capName} */}
+            {capName && capName}
             {pokemon.name}
           </Heading>
 
@@ -125,7 +123,6 @@ const DetailPage = (props) => {
           )}
         </Flex>
       )}
-      <Details />
     </Flex>
   );
 };

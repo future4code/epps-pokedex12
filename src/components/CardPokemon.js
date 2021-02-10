@@ -1,14 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Image,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, IconButton, Image } from "@chakra-ui/react";
 import { CgEye, CgPokemon } from "react-icons/cg";
 import { goToDetails } from "../routes/Coordinator";
 
@@ -19,6 +12,7 @@ const CardPokemon = (props) => {
 
   useEffect(() => {
     getPokemon();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getPokemon = async () => {
@@ -54,7 +48,9 @@ const CardPokemon = (props) => {
           <Heading as="h4" fontSize="1.3rem">
             {props.pokemon.name}
           </Heading>
-          {pokemon.sprites && <Image src={pokemon.sprites.front_default} alt="" />}
+          {pokemon.sprites && (
+            <Image src={pokemon.sprites.front_default} alt="" />
+          )}
           <Flex>
             <IconButton
               icon={<CgPokemon fontSize={30} />}
