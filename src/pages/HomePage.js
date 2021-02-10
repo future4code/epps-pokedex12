@@ -74,7 +74,10 @@ const HomePage = (props) => {
   };
   const showPokeList = pokeTrash;
 
-  console.log(pokeTrash);
+  const filteredPokeList = showPokeList
+    .sort(() => Math.random() - Math.random())
+    .slice(0, showPokeList.length);
+
   return (
     <Flex
       as="main"
