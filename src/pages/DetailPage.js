@@ -40,11 +40,14 @@ const DetailPage = (props) => {
   // TO DO: USEEFFECT GET POKEMON BY ID
   useEffect(() => {
     getPokemon(pathParams.pokeName);
-  }, []);
+  }, [pathParams.pokeName]);
 
   // TO DO: ADD POKEMON TO POKEDEX
 
   // TO DO: REMOVE POKEMON FROM POKEDEX
+
+  // const pokeName = pokemon.name;
+  // const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
 
   return (
     <Flex
@@ -65,12 +68,27 @@ const DetailPage = (props) => {
       </Button>
 
       {isLoading ? (
-        <Spinner />
+        <Spinner size="xl" />
       ) : (
-        <Flex direction="column">
-          <Text>{pokemon.name}</Text>
-          <Text>{pokemon.weight}</Text>
-          <Text>{pokemon.height}</Text>
+        <Flex
+          h="90vh"
+          w="100%"
+          direction="column"
+          justify="center"
+          align="center"
+        >
+          <Heading as="h2" fontSize="2xl" my={4}>
+            {/* {pokemon.name && capName} */}
+            {pokemon.name}
+          </Heading>
+
+          {pokemon.sprites && (
+            <Flex>
+              <Image src={pokemon.sprites.front_default} />
+              <Image src={pokemon.sprites.back_default} />
+            </Flex>
+          )}
+
           {pokemon.stats &&
             pokemon.stats.map((stat) => {
               return (
@@ -79,15 +97,12 @@ const DetailPage = (props) => {
                 </Text>
               );
             })}
-          {pokemon.sprites && (
-            <Flex>
-              <Image src={pokemon.sprites.front_default} />
-              <Image src={pokemon.sprites.back_default} />
-            </Flex>
-          )}
+
+          <Text>weight: {pokemon.weight}</Text>
+          <Text>height: {pokemon.height}</Text>
 
           <Text>
-            Type:{" "}
+            type:{" "}
             {pokemon.types && (
               <span>
                 {pokemon.types[0].type.name}{" "}
@@ -98,10 +113,12 @@ const DetailPage = (props) => {
 
           {pokemon.moves ? (
             <List>
-              <ListItem>{pokemon.moves[0].move.name}</ListItem>
-              <ListItem>{pokemon.moves[1].move.name}</ListItem>
-              <ListItem>{pokemon.moves[2].move.name}</ListItem>
-              <ListItem>{pokemon.moves[3].move.name}</ListItem>
+              {pokemon.moves.map((move, i) => {
+                if (i < 10) {
+                  return <ListItem key={i}>{move.move.name}</ListItem>;
+                }
+                return true;
+              })}
             </List>
           ) : (
             <Spinner />
