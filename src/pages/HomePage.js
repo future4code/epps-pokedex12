@@ -18,45 +18,25 @@ const HomePage = (props) => {
   const { states, setters, requests } = useContext(PokeContext);
   const history = useHistory();
   const { pokedex, setPokedex } = props;
-  // TO DO: LOADING STATE
 
   // TO DO: ADD TO POKEDEX
   const addToPokedex = (newPokemon) => {
     const index = pokedex.findIndex((pokemon) => {
       return pokemon.name === newPokemon.name;
     });
-    if (index === -1) {
-      const newPokedex = [...pokedex, newPokemon];
-      newPokedex.filter((pokemon) => {
-        if (pokemon.name !== newPokemon.name) return pokemon;
-      });
-      setPokedex(newPokedex);
-      alert(`${newPokemon.name} was successfully added to your PokéDex!`);
-      // getPokemons();
-    } else {
-      alert(`${newPokemon.name} is already on pokéDex`);
-    }
+      if (index === -1) {
+        const newPokedex = [...pokedex, newPokemon];
+        newPokedex.filter((pokemon) => {
+          if (pokemon.name !== newPokemon.name) return pokemon;
+        });
+        setPokedex(newPokedex);
+        alert(`${newPokemon.name} was successfully added to your PokéDex!`);
+        // getPokemons();
+      } else {
+        alert(`${newPokemon.name} is already on pokéDex`);
+      }
+    };
   };
-
-  const removeFromPokelist = (name) => {
-    // const index = pokeTrash.findIndex((pokemon) => pokemon.name === name);
-    // //setPokeTrash(pokeList);
-    // pokeTrash.splice(index, 1);
-    // getPokemons();
-  };
-
-  // TO DO: GETPOKEMONLIST
-  // const getPokemons = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/?limit=20`);
-  //     setPokeList(response.data.results);
-  //     setIsLoading(false);
-  //     //setPokeTrash(pokeList);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   // TO DO: USEEFFECT POKEMONLIST
   useEffect(() => {
@@ -65,19 +45,18 @@ const HomePage = (props) => {
 
   // TO DO: GO TO POKEMON DETAILS
 
-  // const filterTrash = (name) => {
-  //   const newPokeList = pokeList.filter((pokemon) => {
-  //     return pokemon.name !== name;
-  //   });
+  const pokeTrash = (name) => {
+  
+    setPokeList(
+      pokeList.filter((pokemon) => {
+        return pokemon.name !== name;
+      }))
+        console.log(pokeList)
+  };
 
-  //   console.log(newPokeList);
-  //   // setPokeTrash(newPokeList);
-  //   return newPokeList;
-  // };
-
-  // const filteredPokeList = pokeList
-  //   .sort(() => Math.random() - Math.random())
-  //   .slice(0, pokeList.length);
+  const filteredPokeList = pokeList
+    .sort(() => Math.random() - Math.random())
+    .slice(0, pokeList.length);
 
   return (
     <Flex
@@ -104,48 +83,8 @@ const HomePage = (props) => {
               />
             );
           })}
-          {/* {pokeTrash.length === 0
-            ? filteredPokeList.map((pokemon) => {
-                return (
-                  <CardPokemon
-                    key={pokemon.nome}
-                    pokemon={pokemon}
-                    addToPokedex={() => addToPokedex(pokemon)}
-                  ></CardPokemon>
-                );
-              })
-            : pokeTrash.map((pokemon) => {
-                return (
-                  <CardPokemon
-                    key={pokemon.nome}
-                    pokemon={pokemon}
-                    addToPokedex={() => addToPokedex(pokemon)}
-                  ></CardPokemon>
-                );
-              })} */}
-          {/* {pokeTrash
-            ? pokeTrash.map((pokemon) => {
-                return (
-                  <CardPokemon
-                    key={pokemon.nome}
-                    pokemon={pokemon}
-                    addToPokedex={() => addToPokedex(pokemon)}
-                  >
-                  </CardPokemon>
-                );
-              })
-            : showPokeList.map((pokemon) => {
-                return (
-                  <CardPokemon
-                    key={pokemon.nome}
-                    pokemon={pokemon}
-                    addToPokedex={() => addToPokedex(pokemon)}
-                  >
-                  </CardPokemon>
-                );
-              })} */}
-        </>
-      )}
+          </>
+        )}
     </Flex>
   );
 };
