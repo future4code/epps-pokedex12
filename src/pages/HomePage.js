@@ -12,13 +12,30 @@ import Btn from "../components/sample/Button";
 
 import Header from "../components/Header";
 
-const HomePage = () => {
+const HomePage = (props) => {
   const history = useHistory();
   const [pokeList, setPokeList] = useState([]);
+  const { pokedex, setPokedex } = props;
+  //const [pokeTrash, setPokeTrash] = useState([]);
   // TO DO: LOADING STATE
   const [isLoading, setIsLoading] = useState(false);
+  //const pokeTrash = pokeList;
 
   // TO DO: ADD TO POKEDEX
+  const addToPokedex = (newPokemon) => {
+    const newPokedex = [...pokedex, newPokemon];
+    setPokedex(newPokedex);
+    pokeTrash(newPokemon.name);
+    // removeFromPokelist(newPokemon.name);
+    alert(`${newPokemon.name} was successfully added to your PokéDex!`);
+  };
+
+  const removeFromPokelist = (name) => {
+    // const index = pokeTrash.findIndex((pokemon) => pokemon.name === name);
+    // //setPokeTrash(pokeList);
+    // pokeTrash.splice(index, 1);
+    // getPokemons();
+  };
 
   // TO DO: GETPOKEMONLIST
   const getPokemons = async () => {
@@ -27,6 +44,7 @@ const HomePage = () => {
       const response = await axios.get(`${BASE_URL}/?limit=20`);
       setPokeList(response.data.results);
       setIsLoading(false);
+      //setPokeTrash(pokeList);
     } catch (err) {
       console.log(err);
     }
@@ -39,7 +57,22 @@ const HomePage = () => {
 
   // TO DO: GO TO POKEMON DETAILS
 
-  const showPokeList = pokeList;
+  const pokeTrash = (name) => {
+    pokeList
+      .filter((pokemon) => {
+        return pokemon.name !== name;
+      })
+      .map((pokemon) => {
+        return (
+          <CardPokemon
+            key={pokemon.nome}
+            pokemon={pokemon}
+            addToPokedex={() => addToPokedex(pokemon)}
+          ></CardPokemon>
+        );
+      });
+  };
+  const showPokeList = pokeTrash;
 
   const filteredPokeList = showPokeList
     .sort(() => Math.random() - Math.random())
@@ -60,9 +93,30 @@ const HomePage = () => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : (
-        filteredPokeList.map((pokemon) => {
-          return <CardPokemon key={pokemon.nome} pokemon={pokemon} />;
-        })
+        <>
+          {pokeTrash()}
+          {/* {pokeTrash
+            ? pokeTrash.map((pokemon) => {
+                return (
+                  <CardPokemon
+                    key={pokemon.nome}
+                    pokemon={pokemon}
+                    addToPokedex={() => addToPokedex(pokemon)}
+                  >
+                  </CardPokemon>
+                );
+              })
+            : showPokeList.map((pokemon) => {
+                return (
+                  <CardPokemon
+                    key={pokemon.nome}
+                    pokemon={pokemon}
+                    addToPokedex={() => addToPokedex(pokemon)}
+                  >
+                  </CardPokemon>
+                );
+              })} */}
+        </>
       )}
     </Flex>
   );

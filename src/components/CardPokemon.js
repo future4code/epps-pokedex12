@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Box, Flex, IconButton, Image } from "@chakra-ui/react";
-
+import { Box, Flex, IconButton, Image, Spinner } from "@chakra-ui/react";
 import { CgEye, CgPokemon } from "react-icons/cg";
-
 import { goToDetails } from "../routes/Coordinator";
 
 const CardPokemon = (props) => {
@@ -50,6 +48,7 @@ const CardPokemon = (props) => {
               icon={<CgPokemon fontSize={30} />}
               margin="10px"
               colorScheme="red"
+              onClick={props.addToPokedex}
             />
             <IconButton
               icon={<CgEye fontSize={30} />}
