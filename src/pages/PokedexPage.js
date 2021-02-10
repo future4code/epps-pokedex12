@@ -1,11 +1,15 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
-
+import React, { useState, useEffect } from "react";
+import { Box, Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import CardPokemon from "../components/CardPokemon";
+import { goHome } from "../routes/Coordinator";
+import Header from "../components/Header";
+import Btn from "../components/sample/Button";
 
-import { goToDetails } from "../routes/Coordinator";
-
-const PokedexPage = () => {
+const PokedexPage = (props) => {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+  const { pokedex, setPokedex } = props;
   // TO DO: LOADING STATE
 
   // TO DO: GO TO POKEMON DETAILS
@@ -17,18 +21,26 @@ const PokedexPage = () => {
       as="main"
       h="80vh"
       w="100vw"
-      direction="column"
+      flexWrap="wrap"
       justify="center"
       align="center"
     >
-      <Heading>PokedexPage</Heading>
-      <Button
-        onClick={() => goToDetails(history)}
-        variant="outline"
-        colorScheme="grey"
-      >
-        details
-      </Button>
+      <Header>
+        <Btn goTo={() => goHome(history)}>pokemons</Btn>
+      </Header>
+      {isLoading ? (
+        <Spinner size="xl" />
+      ) : (
+        pokedex.map((pokemon) => {
+          return (
+            <CardPokemon
+              key={pokemon.nome}
+              pokemon={pokemon}
+              onClick={props.addToPokedex}
+            />
+          );
+        })
+      )}
     </Flex>
   );
 };
