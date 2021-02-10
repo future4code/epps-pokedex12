@@ -54,9 +54,7 @@ const CardPokemon = (props) => {
           <Heading as="h4" fontSize="1.3rem">
             {props.pokemon.name}
           </Heading>
-          {pokemon.sprites && (
-            <Image src={pokemon.sprites.front_default} alt="" />
-          )}
+          {pokemon.sprites && <Image src={pokemon.sprites.front_default} alt="" />}
           <Flex>
             <IconButton
               icon={<CgPokemon fontSize={30} />}
