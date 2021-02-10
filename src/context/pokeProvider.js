@@ -20,13 +20,12 @@ const PokeProvider = (props) => {
     // setIsLoading(true);
     try {
       const response = await axios.get(`${base_url}/?limit=20`);
-      console.log(response.data.results);
-
       setPokemons(response.data.results);
-
-      console.log("curto circuito", pokemons && pokemons);
+      console.log(pokemons);
+      pokemons
+        .sort(() => Math.random() - Math.random())
+        .slice(0, pokemons.length);
       // setIsLoading(false);
-      return pokemons && pokemons;
     } catch (err) {
       throw new Error(err);
     }
@@ -34,14 +33,8 @@ const PokeProvider = (props) => {
 
   useEffect(() => {
     getPokemons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    console.log("useffect", pokemons);
-  }, [pokemons]);
-
-  // console.log(pokedex);
-  // console.log(pokemons);
 
   const states = { pokemons, pokedex, isLoading };
   const setters = { setPokemons, setPokedex };

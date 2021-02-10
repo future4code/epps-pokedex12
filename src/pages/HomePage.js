@@ -5,16 +5,14 @@ import PokeContext from "../context/pokeContext";
 import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
-// import { BASE_URL } from "../parameters";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect } from "react";
 import CardPokemon from "../components/CardPokemon";
 
 import Btn from "../components/sample/Button";
 
 import Header from "../components/Header";
 
-const HomePage = (props) => {
+const HomePage = () => {
   const { states, setters, requests } = useContext(PokeContext);
   const history = useHistory();
   // const { pokedex, setPokedex } = props;
@@ -26,12 +24,18 @@ const HomePage = (props) => {
     });
     if (index === -1) {
       const newPokedex = [...states.pokedex, newPokemon];
+      // eslint-disable-next-line array-callback-return
       newPokedex.filter((pokemon) => {
         if (pokemon.name !== newPokemon.name) return pokemon;
       });
       setters.setPokedex(newPokedex);
       alert(`${newPokemon.name} was successfully added to your PokéDex!`);
       // getPokemons();
+      setters.setPokemons(
+        states.pokemons.filter((pokemon) => {
+          return pokemon.name !== newPokemon.name;
+        })
+      );
     } else {
       alert(`${newPokemon.name} is already on pokéDex`);
     }
@@ -40,22 +44,10 @@ const HomePage = (props) => {
   // TO DO: USEEFFECT POKEMONLIST
   useEffect(() => {
     requests.getPokemons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // TO DO: GO TO POKEMON DETAILS
-
-  // const pokeTrash = (name) => {
-  //   setPokeList(
-  //     pokeList.filter((pokemon) => {
-  //       return pokemon.name !== name;
-  //     })
-  //   );
-  //   console.log(pokeList);
-  // };
-
-  // const filteredPokeList = pokeList
-  //   .sort(() => Math.random() - Math.random())
-  //   .slice(0, pokeList.length);
 
   return (
     <Flex
