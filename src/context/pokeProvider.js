@@ -17,15 +17,11 @@ const PokeProvider = (props) => {
 
   // TO DO: GETPOKEMONLIST
   const getPokemons = async () => {
-    // setIsLoading(true);
+    setIsLoading(true);
     try {
-      const response = await axios.get(`${base_url}/?limit=20`);
-      setPokemons(response.data.results);
-      console.log(pokemons);
-      pokemons
-        .sort(() => Math.random() - Math.random())
-        .slice(0, pokemons.length);
-      // setIsLoading(false);
+      const response = await axios.get(`${base_url}/?limit=151`);
+      setPokemons(response.data.results.sort(() => Math.random() - Math.random()).slice(0, 20))
+      setIsLoading(false);
     } catch (err) {
       throw new Error(err);
     }
