@@ -1,14 +1,25 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Box, Flex, Heading, IconButton, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Image,
+  useStyleConfig,
+} from "@chakra-ui/react";
 import { CgCloseO, CgEye, CgPokemon } from "react-icons/cg";
 import { goToDetails } from "../../routes/Coordinator";
+import PokeContext from "../../context/pokeContext";
 
 const CardPokemon = (props) => {
   const history = useHistory();
+  const { states, setters, requests } = useContext(PokeContext);
   const [pokemon, setPokemon] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const { size, variant, ...rest } = props;
+  const styles = useStyleConfig("CardPokemon", { size, variant });
 
   useEffect(() => {
     getPokemon();
@@ -19,6 +30,7 @@ const CardPokemon = (props) => {
     setIsLoading(true);
     try {
       const response = await axios.get(props.pokemon.url);
+      // console.log(response.data);
       setPokemon(response.data);
       setIsLoading(false);
     } catch (err) {
@@ -26,8 +38,20 @@ const CardPokemon = (props) => {
     }
   };
 
+  const changeCard = (pokeName) => {
+    // const poke = requests.getPokemon(pokeName);
+    // console.log(poke);
+    // switch (pokeName) {
+    //   case "grass":
+    //     return <Box bgColor="green.500">teste</Box>;
+    //   default:
+    //     return <Box bgColor="black">default</Box>;
+    // }
+  };
+
   return (
     <>
+      {changeCard(props.pokemon.name)}
       {isLoading ? (
         ""
       ) : (
@@ -41,6 +65,8 @@ const CardPokemon = (props) => {
           align="center"
           boxShadow="1px 1px 8px #ccc"
           transition="box-shadow 150ms ease"
+          sx={styles}
+          {...rest}
           _hover={{
             boxShadow: "1px 1px 10px #aaa",
           }}
