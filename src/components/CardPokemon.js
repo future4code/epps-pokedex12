@@ -45,7 +45,7 @@ const CardPokemon = (props) => {
             boxShadow: "1px 1px 10px #aaa",
           }}
         >
-          <Heading as="h4" fontSize="1.3rem">
+          <Heading as="h2">
             {props.pokemon.name[0].toUpperCase() + props.pokemon.name.substr(1)}
           </Heading>
           {pokemon.sprites && (

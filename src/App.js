@@ -17,17 +17,19 @@ const App = () => {
           fontSize: "xl",
         },
         h2: {
-          fontSize: "4xl",
+          fontSize: "6xl",
+        },
+        h3: {
+          fontSize: "2xl",
         },
         h4: {
-          fontSize: "2xl",
+          fontSize: "xl",
         },
       },
     },
     fonts: {
       heading: {
         fontFamily: "Cutive Mono",
-        fontSize: 20,
       },
     },
   });

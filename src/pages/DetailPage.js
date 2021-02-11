@@ -33,6 +33,7 @@ const DetailPage = (props) => {
         `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
       );
       setPokemon(response.data);
+      console.log(pokemon.sprites);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -65,19 +66,34 @@ const DetailPage = (props) => {
           w="100%"
           h="90vh"
           direction="column"
-          // justify="center"
           align="center"
           paddingBottom={4}
         >
           <Flex w="100%" direction="column" align="center">
-            <Heading as="h2">
+            <Heading>
               {pokemon.name &&
                 pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
             </Heading>
             {pokemon.sprites && (
-              <Flex w="100%" justify="center">
-                <Image src={pokemon.sprites.front_default} />
-                <Image src={pokemon.sprites.back_default} />
+              <Flex w="100%" justify="space-evenly">
+                <Box w="45%">
+                  <Heading as="h4" textAlign="center">
+                    Normal
+                  </Heading>
+                  <Flex justify="center">
+                    <Image src={pokemon.sprites.front_default} />
+                    <Image src={pokemon.sprites.back_default} />
+                  </Flex>
+                </Box>
+                <Box w="45%">
+                  <Heading as="h4" textAlign="center">
+                    Shiny
+                  </Heading>
+                  <Flex justify="center">
+                    <Image src={pokemon.sprites.front_shiny} />
+                    <Image src={pokemon.sprites.back_shiny} />
+                  </Flex>
+                </Box>
               </Flex>
             )}
           </Flex>
@@ -99,7 +115,7 @@ const DetailPage = (props) => {
                 boxShadow: "1px 1px 10px #aaa",
               }}
             >
-              <Heading as="h4">Stats</Heading>
+              <Heading as="h3">Stats</Heading>
               <Text>
                 type:{" "}
                 {pokemon.types && (
@@ -138,7 +154,7 @@ const DetailPage = (props) => {
                 boxShadow: "1px 1px 10px #aaa",
               }}
             >
-              <Heading as="h4">Moves</Heading>
+              <Heading as="h3">Moves</Heading>
               {pokemon.moves ? (
                 <Flex flexWrap="wrap">
                   {pokemon.moves.map((move, i) => {
