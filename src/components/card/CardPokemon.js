@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import {
   Box,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   IconButton,
   Image,
@@ -55,18 +57,18 @@ const CardPokemon = (props) => {
       {states.isLoading ? (
         ""
       ) : (
-        <Box
+
+          <GridItem
           padding="10px"
           margin="10px"
-          maxW="200px"
           maxH="200px"
           borderWidth="1px"
           borderRadius="lg"
           align="center"
           boxShadow="1px 1px 8px #ccc"
           transition="box-shadow 150ms ease"
-          sx={styles}
-          {...rest}
+          // sx={styles}
+          // {...rest}
           _hover={{
             boxShadow: "1px 1px 10px #aaa",
           }}
@@ -77,7 +79,7 @@ const CardPokemon = (props) => {
           {pokemon.sprites && (
             <Image src={pokemon.sprites.front_default} alt="" />
           )}
-          <Flex>
+          <Flex justify="center">
             {props.visible ? (
               <IconButton
                 icon={<CgCloseO fontSize={30} />}
@@ -100,7 +102,7 @@ const CardPokemon = (props) => {
               colorScheme="blackAlpha"
             />
           </Flex>
-        </Box>
+        </GridItem>        
       )}
     </>
   );
