@@ -1,5 +1,4 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import Header from "./components/Header";
 import PokeProvider from "./context/pokeProvider";
 import Router from "./routes/Router";
 
@@ -13,11 +12,22 @@ const App = () => {
           borderBox: "box-sizing",
           fontFamily: "Cutive Mono",
         },
+        p: {
+          padding: 2,
+          fontSize: "xl",
+        },
+        h2: {
+          fontSize: "4xl",
+        },
+        h4: {
+          fontSize: "2xl",
+        },
       },
     },
     fonts: {
       heading: {
         fontFamily: "Cutive Mono",
+        fontSize: 20,
       },
     },
   });
@@ -25,7 +35,6 @@ const App = () => {
   return (
     <PokeProvider>
       <ChakraProvider theme={pokeTheme}>
-        <Header />
         <Router />
       </ChakraProvider>
     </PokeProvider>
