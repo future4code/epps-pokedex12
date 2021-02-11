@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   Heading,
   Text,
@@ -7,13 +6,18 @@ import {
   Spinner,
   List,
   ListItem,
+  Box,
+  Center,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
+import Header from "../components/Header";
 
-import { goHome } from "../routes/Coordinator";
+import Btn from "../components/sample/Button";
+
+import { goHome, goToPokedex } from "../routes/Coordinator";
 
 const DetailPage = (props) => {
   const history = useHistory();
@@ -29,6 +33,7 @@ const DetailPage = (props) => {
         `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
       );
       setPokemon(response.data);
+      console.log(pokemon.sprites);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -40,86 +45,134 @@ const DetailPage = (props) => {
     getPokemon(pathParams.pokeName);
   }, [pathParams.pokeName]);
 
-  // TO DO: ADD POKEMON TO POKEDEX
-
-  // TO DO: REMOVE POKEMON FROM POKEDEX
-
-  //  const pokeName = pokemon.name;
-  //  const capName = pokeName[0].toUpperCase() + pokeName.substr(1);
-
   return (
     <Flex
       as="main"
-      h="80vh"
+      h="100vh"
       w="100vw"
       direction="column"
       justify="center"
       align="center"
     >
-      <Heading>DetailPage</Heading>
-      <Button
-        onClick={() => goHome(history)}
-        variant="outline"
-        colorScheme="grey"
-      >
-        Home
-      </Button>
+      <Header>
+        <Btn goTo={() => goHome(history)}>Home</Btn>
+        <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
+      </Header>
 
       {isLoading ? (
         <Spinner size="xl" />
       ) : (
         <Flex
-          h="90vh"
           w="100%"
+          h="90vh"
           direction="column"
-          justify="center"
           align="center"
+          paddingBottom={4}
         >
-          <Heading as="h2" fontSize="2xl" my={4}>
-            {pokemon.name&&pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
-          </Heading>
-
-          {pokemon.sprites && (
-            <Flex>
-              <Image src={pokemon.sprites.front_default} />
-              <Image src={pokemon.sprites.back_default} />
-            </Flex>
-          )}
-
-          {pokemon.stats &&
-            pokemon.stats.map((stat) => {
-              return (
-                <Text key={stat.stat.name}>
-                  {stat.stat.name}: {stat.base_stat}
-                </Text>
-              );
-            })}
-
-          <Text>weight: {pokemon.weight}</Text>
-          <Text>height: {pokemon.height}</Text>
-
-          <Text>
-            type:{" "}
-            {pokemon.types && (
-              <span>
-                {pokemon.types[0].type.name}{" "}
-                {pokemon.types[1] && " & " + pokemon.types[1].type.name}
-              </span>
+          <Flex w="100%" direction="column" align="center">
+            <Heading as="h2" fontSize="32px">
+              {pokemon.name &&
+                pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
+            </Heading>
+            {pokemon.sprites && (
+              <Flex w="100%" justify="space-evenly">
+                <Box w="45%">
+                  <Heading as="h4" fontSize="20px" textAlign="center">
+                    Normal
+                  </Heading>
+                  <Flex justify="center">
+                    <Image src={pokemon.sprites.front_default} />
+                    <Image src={pokemon.sprites.back_default} />
+                  </Flex>
+                </Box>
+                <Box w="45%">
+                  <Heading as="h4" fontSize="20px" textAlign="center">
+                    Shiny
+                  </Heading>
+                  <Flex justify="center">
+                    <Image src={pokemon.sprites.front_shiny} />
+                    <Image src={pokemon.sprites.back_shiny} />
+                  </Flex>
+                </Box>
+              </Flex>
             )}
-          </Text>
+          </Flex>
 
-          {pokemon.moves ? (
-            <List>
-              {pokemon.moves.map((move, i) => {
-                if (i < 10) {
-                  return <ListItem key={i}>{move.move.name}</ListItem>;
-                }
-                return true;
-              })}
-            </List>
-          ) : (
-            <Spinner />
-          )}
+          <Flex w="100%" justify="space-evenly">
+            <Flex
+              paddingX={8}
+              paddingY={8}
+              marginBottom={4}
+              borderWidth="1px"
+              borderRadius="lg"
+              w="45%"
+              maxW="350px"
+              flexWrap="wrap"
+              direction="column"
+              boxShadow="1px 1px 8px #ccc"
+              transition="box-shadow 150ms ease"
+              _hover={{
+                boxShadow: "1px 1px 10px #aaa",
+              }}
+            >
+              <Heading as="h3" fontSize="22px">
+                Stats
+              </Heading>
+              <Text>
+                type:{" "}
+                {pokemon.types && (
+                  <span>
+                    {pokemon.types[0].type.name}{" "}
+                    {pokemon.types[1] && " & " + pokemon.types[1].type.name}
+                  </span>
+                )}
+              </Text>
+              {pokemon.stats &&
+                pokemon.stats.map((stat) => {
+                  return (
+                    <Text key={stat.stat.name}>
+                      {stat.stat.name}: {stat.base_stat}
+                    </Text>
+                  );
+                })}
+              <Text>weight: {pokemon.weight}</Text>
+              <Text>height: {pokemon.height}</Text>
+            </Flex>
+
+            <Flex
+              paddingX={8}
+              paddingY={8}
+              marginBottom={4}
+              borderWidth="1px"
+              borderRadius="lg"
+              w="45%"
+              maxW="350px"
+              flexWrap="wrap"
+              direction="column"
+              justify="flex-start"
+              boxShadow="1px 1px 8px #ccc"
+              transition="box-shadow 150ms ease"
+              _hover={{
+                boxShadow: "1px 1px 10px #aaa",
+              }}
+            >
+              <Heading as="h3" fontSize="22px">
+                Moves
+              </Heading>
+              {pokemon.moves ? (
+                <Flex flexWrap="wrap">
+                  {pokemon.moves.map((move, i) => {
+                    if (i < 10) {
+                      return <Text key={i}>{move.move.name}</Text>;
+                    }
+                    return true;
+                  })}
+                </Flex>
+              ) : (
+                <Spinner />
+              )}
+            </Flex>
+          </Flex>
         </Flex>
       )}
     </Flex>

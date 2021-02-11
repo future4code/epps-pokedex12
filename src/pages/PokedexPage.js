@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import CardPokemon from "../components/CardPokemon";
+import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";
 import Header from "../components/Header";
 import Btn from "../components/sample/Button";
@@ -35,13 +35,14 @@ const PokedexPage = (props) => {
     }
   };
 
-  // const removePokemon=(poke)=>{
-  //   setters.setPokedex(
-  //     states.pokemons.filter((pokemon) => {
-  //       return pokemon.name !== poke.name;
-  //     })
-  //   )
-  // }
+  const removeFromPokedex = (poke) => {
+    setters.setPokedex(
+      states.pokedex.filter((pokemon) => {
+        return pokemon.name !== poke.name;
+      })
+    );
+    console.log(states.pokedex);
+  };
 
   return (
     <Flex
@@ -53,6 +54,7 @@ const PokedexPage = (props) => {
       align="center"
     >
       <Header>
+        <Btn goTo={() => goHome(history)}>home</Btn>
         <Btn goTo={() => goHome(history)}>pokemons</Btn>
       </Header>
       <Flex
@@ -71,7 +73,8 @@ const PokedexPage = (props) => {
                 <CardPokemon
                   key={pokemon.url}
                   pokemon={pokemon}
-                  onClick={() => addToPokedex(pokemon)}
+                  addPokedex={() => addToPokedex(pokemon)}
+                  removePokedex={() => removeFromPokedex(pokemon)}
                   visible={true}
                 />
               );

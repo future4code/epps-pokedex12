@@ -5,17 +5,16 @@ import PokeContext from "../context/pokeContext";
 import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
-import { useContext, useEffect } from "react";
-import CardPokemon from "../components/CardPokemon";
+import { useContext } from "react";
+import CardPokemon from "../components/card/CardPokemon";
 
 import Btn from "../components/sample/Button";
 
 import Header from "../components/Header";
 
 const HomePage = () => {
-  const { states, setters, requests } = useContext(PokeContext);
+  const { states, setters } = useContext(PokeContext);
   const history = useHistory();
-  // const { pokedex, setPokedex } = props;
 
   // TO DO: ADD TO POKEDEX
   const addToPokedex = (newPokemon) => {
@@ -24,13 +23,16 @@ const HomePage = () => {
     });
     if (index === -1) {
       const newPokedex = [...states.pokedex, newPokemon];
+
       // eslint-disable-next-line array-callback-return
       newPokedex.filter((pokemon) => {
         if (pokemon.name !== newPokemon.name) return pokemon;
       });
+
       setters.setPokedex(newPokedex);
+
       alert(`${newPokemon.name} was successfully added to your PokéDex!`);
-      // getPokemons();
+
       setters.setPokemons(
         states.pokemons.filter((pokemon) => {
           return pokemon.name !== newPokemon.name;
@@ -40,14 +42,6 @@ const HomePage = () => {
       alert(`${newPokemon.name} is already on pokéDex`);
     }
   };
-
-  // TO DO: USEEFFECT POKEMONLIST
-  // useEffect(() => {
-  //   requests.getPokemons();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // TO DO: GO TO POKEMON DETAILS
 
   return (
     <Flex

@@ -7,8 +7,6 @@ import axios from "axios";
 import { BASE_URL } from "../parameters";
 import { useEffect } from "react";
 
-// const PokeContext = React.createContext();
-
 const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
@@ -20,7 +18,11 @@ const PokeProvider = (props) => {
     setIsLoading(true);
     try {
       const response = await axios.get(`${base_url}/?limit=151`);
-      setPokemons(response.data.results.sort(() => Math.random() - Math.random()).slice(0, 20))
+      setPokemons(
+        response.data.results
+          .sort(() => Math.random() - Math.random())
+          .slice(0, 30)
+      );
       setIsLoading(false);
     } catch (err) {
       throw new Error(err);
