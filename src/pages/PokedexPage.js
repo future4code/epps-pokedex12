@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
+
+import { Flex, Spinner, useToast, SimpleGrid } from "@chakra-ui/react";
+
 import { useHistory } from "react-router-dom";
 import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";
@@ -10,30 +12,7 @@ import PokeContext from "../context/pokeContext";
 const PokedexPage = (props) => {
   const { states, setters } = useContext(PokeContext);
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
-  // TO DO: LOADING STATE
-
-  // TO DO: GO TO POKEMON DETAILS
-
-  // TO DO: LOADING SPINNER
-
-  // TO DO: ADD TO POKEDEX
-  const addToPokedex = (newPokemon) => {
-    const index = states.pokedex.findIndex((pokemon) => {
-      return pokemon.name === newPokemon.name;
-    });
-    if (index === -1) {
-      const newPokedex = [...states.pokedex, newPokemon];
-      // eslint-disable-next-line array-callback-return
-      newPokedex.filter((pokemon) => {
-        if (pokemon.name !== newPokemon.name) return pokemon;
-      });
-      setters.setPokedex(newPokedex);
-      alert(`${newPokemon.name} was successfully added to your PokéDex!`);
-    } else {
-      alert(`${newPokemon.name} is already on pokéDex`);
-    }
-  };
+  const toast = useToast();
 
   const removeFromPokedex = (poke) => {
     setters.setPokedex(
@@ -41,7 +20,13 @@ const PokedexPage = (props) => {
         return pokemon.name !== poke.name;
       })
     );
-    console.log(states.pokedex);
+    toast({
+      title: "Success!",
+      description: `${poke.name} was removed from the pokéDex!`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -64,7 +49,6 @@ const PokedexPage = (props) => {
                 <CardPokemon
                   key={pokemon.url}
                   pokemon={pokemon}
-                  addPokedex={() => addToPokedex(pokemon)}
                   removePokedex={() => removeFromPokedex(pokemon)}
                   visible={true}
                 />

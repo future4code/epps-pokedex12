@@ -54,7 +54,7 @@ const CardPokemon = (props) => {
   return (
     <>
       {changeCard(props.pokemon.name)}
-      {isLoading ? (
+      {states.isLoading ? (
         ""
       ) : (
 

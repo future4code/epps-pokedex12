@@ -1,4 +1,5 @@
-import { Flex, Grid, SimpleGrid, Spinner } from "@chakra-ui/react";
+
+import { Flex, Spinner, useToast, Grid, SimpleGrid, Spinner } from "@chakra-ui/react";
 
 import PokeContext from "../context/pokeContext";
 
@@ -15,6 +16,7 @@ import Header from "../components/Header";
 const HomePage = () => {
   const { states, setters } = useContext(PokeContext);
   const history = useHistory();
+  const toast = useToast();
 
   // TO DO: ADD TO POKEDEX
   const addToPokedex = (newPokemon) => {
@@ -33,7 +35,13 @@ const HomePage = () => {
 
       setters.setPokedex(newPokedex);
 
-      alert(`${newPokemon.name} was successfully added to your PokéDex!`);
+      toast({
+        title: "Success!",
+        description: `${newPokemon.name} was added to the pokéDex!`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
 
       setters.setPokemons(
         states.pokemons.filter((pokemon) => {
@@ -41,7 +49,15 @@ const HomePage = () => {
         })
       );
     } else {
-      alert(`${newPokemon.name} is already on pokéDex`);
+      toast({
+        title: "Error!",
+        description: `${
+          newPokemon.name[0].toUpperCase() + newPokemon.name.substr(1)
+        } is already on the pokéDex!`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
