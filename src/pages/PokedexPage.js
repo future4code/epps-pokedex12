@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";
@@ -45,26 +45,17 @@ const PokedexPage = (props) => {
   };
 
   return (
-    <Flex
-      as="main"
-      h="100vh"
-      w="100vw"
-      direction="column"
-      justify="space-between"
-      align="center"
-    >
-      <Header>
-        <Btn goTo={() => goHome(history)}>home</Btn>
-        <Btn goTo={() => goHome(history)}>pokemons</Btn>
-      </Header>
-      <Flex
-        h="100%"
-        w="100%"
-        flexWrap="wrap"
-        alignItems="flex-start"
-        justify="center"
+  <>
+    <Header>
+      <Btn goTo={() => goHome(history)}>home</Btn>
+      <Btn goTo={() => goHome(history)}>pokemons</Btn>
+    </Header>
+    <SimpleGrid
+        padding="10px"
+        gap={5}
+        minChildWidth="180px"
+        maxChildWidth="220px"
       >
-        <>
           {states.isLoading ? (
             <Spinner size="xl" />
           ) : (
@@ -80,9 +71,8 @@ const PokedexPage = (props) => {
               );
             })
           )}
-        </>
-      </Flex>
-    </Flex>
+    </SimpleGrid>
+    </>
   );
 };
 

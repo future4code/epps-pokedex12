@@ -1,4 +1,4 @@
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Flex, Grid, SimpleGrid, Spinner } from "@chakra-ui/react";
 
 import PokeContext from "../context/pokeContext";
 
@@ -46,34 +46,34 @@ const HomePage = () => {
   };
 
   return (
-    <Flex
-      as="main"
-      h="80vh"
-      w="100vw"
-      flexWrap="wrap"
-      justify="center"
-      align="center"
-    >
+    <>
       <Header>
         <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
       </Header>
-      {states.isLoading ? (
-        <Spinner size="xl" />
-      ) : (
-        <>
-          {states.pokemons.map((pokemon) => {
-            return (
-              <CardPokemon
-                key={pokemon.name}
-                pokemon={pokemon}
-                addToPokedex={() => addToPokedex(pokemon)}
-                visible={false}
-              />
-            );
-          })}
-        </>
-      )}
-    </Flex>
+      <SimpleGrid
+        padding="10px"
+        gap={5}
+        as="main"
+        minChildWidth="180px"
+      >
+        {states.isLoading ? (
+          <Spinner size="xl" />
+        ) : (
+            <>
+              {states.pokemons.map((pokemon) => {
+                return (
+                  <CardPokemon
+                    key={pokemon.name}
+                    pokemon={pokemon}
+                    addToPokedex={() => addToPokedex(pokemon)}
+                    visible={false}
+                  />
+                );
+              })}
+            </>
+          )}
+      </SimpleGrid>
+    </>
   );
 };
 
