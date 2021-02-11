@@ -70,14 +70,14 @@ const DetailPage = (props) => {
           paddingBottom={4}
         >
           <Flex w="100%" direction="column" align="center">
-            <Heading>
+            <Heading as="h2" fontSize="32px">
               {pokemon.name &&
                 pokemon.name[0].toUpperCase() + pokemon.name.substr(1)}
             </Heading>
             {pokemon.sprites && (
               <Flex w="100%" justify="space-evenly">
                 <Box w="45%">
-                  <Heading as="h4" textAlign="center">
+                  <Heading as="h4" fontSize="20px" textAlign="center">
                     Normal
                   </Heading>
                   <Flex justify="center">
@@ -86,7 +86,7 @@ const DetailPage = (props) => {
                   </Flex>
                 </Box>
                 <Box w="45%">
-                  <Heading as="h4" textAlign="center">
+                  <Heading as="h4" fontSize="20px" textAlign="center">
                     Shiny
                   </Heading>
                   <Flex justify="center">
@@ -115,7 +115,9 @@ const DetailPage = (props) => {
                 boxShadow: "1px 1px 10px #aaa",
               }}
             >
-              <Heading as="h3">Stats</Heading>
+              <Heading as="h3" fontSize="22px">
+                Stats
+              </Heading>
               <Text>
                 type:{" "}
                 {pokemon.types && (
@@ -154,7 +156,9 @@ const DetailPage = (props) => {
                 boxShadow: "1px 1px 10px #aaa",
               }}
             >
-              <Heading as="h3">Moves</Heading>
+              <Heading as="h3" fontSize="22px">
+                Moves
+              </Heading>
               {pokemon.moves ? (
                 <Flex flexWrap="wrap">
                   {pokemon.moves.map((move, i) => {

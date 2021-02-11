@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
 import { useContext } from "react";
-import CardPokemon from "../components/CardPokemon";
+import CardPokemon from "../components/card/CardPokemon";
 
 import Btn from "../components/sample/Button";
 

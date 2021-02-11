@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Flex, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import CardPokemon from "../components/CardPokemon";
+import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";
 import Header from "../components/Header";
 import Btn from "../components/sample/Button";

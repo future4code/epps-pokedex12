@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Box, Flex, Heading, IconButton, Image } from "@chakra-ui/react";
 import { CgCloseO, CgEye, CgPokemon } from "react-icons/cg";
-import { goToDetails } from "../routes/Coordinator";
+import { goToDetails } from "../../routes/Coordinator";
 
 const CardPokemon = (props) => {
   const history = useHistory();
@@ -45,7 +45,7 @@ const CardPokemon = (props) => {
             boxShadow: "1px 1px 10px #aaa",
           }}
         >
-          <Heading as="h2">
+          <Heading as="h4" fontSize="22px">
             {props.pokemon.name[0].toUpperCase() + props.pokemon.name.substr(1)}
           </Heading>
           {pokemon.sprites && (
