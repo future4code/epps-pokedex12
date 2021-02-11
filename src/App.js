@@ -1,29 +1,31 @@
-import {
-  Box,
-  ChakraProvider,
-  extendTheme,
-  useStyleConfig,
-} from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, CSSReset } from "@chakra-ui/react";
 import PokeProvider from "./context/pokeProvider";
 import Router from "./routes/Router";
 
 const components = {
-  PokemonCard: {
-    baseStyle: ({ colorMode }) => ({
-      bg: colorMode === "light" ? "red.400" : "green.400",
-    }),
+  CardPokemon: {
+    variants: {
+      "poke-type": {
+        bgColor: ({ pokeType }) => {
+          switch (pokeType) {
+            case "water":
+              return "blue.00";
+            case "fire":
+              return "red.400";
+            case "grass":
+              return "green.300";
+            default:
+              return "white";
+          }
+        },
+      },
+    },
   },
-};
-
-const CustomCard = (props) => {
-  const { size, variant, ...rest } = props;
-  const styles = useStyleConfig("CustomCard", { size, variant });
-
-  return <Box sx={styles} {...rest} />;
 };
 
 const App = () => {
   const pokeTheme = extendTheme({
+    components,
     styles: {
       global: {
         "html, body": {
@@ -47,7 +49,6 @@ const App = () => {
         },
       },
     },
-    components,
     fonts: {
       heading: {
         fontFamily: "Cutive Mono",
@@ -63,7 +64,7 @@ const App = () => {
   return (
     <PokeProvider>
       <ChakraProvider theme={pokeTheme}>
-        {/* <CustomCard>testando</CustomCard> */}
+        <CSSReset />
         <Router />
       </ChakraProvider>
     </PokeProvider>

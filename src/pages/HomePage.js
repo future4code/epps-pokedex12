@@ -29,6 +29,8 @@ const HomePage = () => {
         if (pokemon.name !== newPokemon.name) return pokemon;
       });
 
+      console.log(states.pokemon);
+
       setters.setPokedex(newPokedex);
 
       alert(`${newPokemon.name} was successfully added to your PokéDex!`);
