@@ -39,17 +39,6 @@ const CardPokemon = (props) => {
     }
   };
 
-  const changeCard = (pokeName) => {
-    // const poke = requests.getPokemon(pokeName);
-    // console.log(poke);
-    // switch (pokeName) {
-    //   case "grass":
-    //     return <Box bgColor="green.500">teste</Box>;
-    //   default:
-    //     return <Box bgColor="black">default</Box>;
-    // }
-  };
-
   return (
     <>
       {states.isLoading ? (
@@ -73,12 +62,13 @@ const CardPokemon = (props) => {
           <Heading as="h4" fontSize="22px">
             {props.pokemon.name[0].toUpperCase() + props.pokemon.name.substr(1)}
           </Heading>
-          {pokemonId && (
+          {/* {pokemonId && (
             <Image
               maxH="150px"
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}
             />
-          )}
+          )} */}
+          {pokemon.sprites && <Image src={pokemon.sprites.front_default} />}
           <Flex justify="center">
             {props.visible ? (
               <IconButton

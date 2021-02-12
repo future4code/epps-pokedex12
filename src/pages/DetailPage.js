@@ -167,6 +167,10 @@ const DetailPage = (props) => {
           direction="column"
           align="center"
           paddingBottom={4}
+          bgImg={`url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${states.pokemon.id}.png)`}
+          bgRepeat="no-repeat"
+          bgPos="bottom right"
+          objectFit="cover"
         >
           <Flex w="100%" direction="column" align="center">
             <Heading as="h2" fontSize="32px">
@@ -185,12 +189,6 @@ const DetailPage = (props) => {
                     <Image src={states.pokemon.sprites.back_default} />
                   </Flex>
                 </Box>
-                {states.pokemon.id && (
-                  <Image
-                    maxH="150px"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${states.pokemon.id}.png`}
-                  />
-                )}
                 <Box w="45%" paddingBottom="4">
                   <Heading as="h4" fontSize="20px" textAlign="center">
                     Shiny
@@ -209,17 +207,10 @@ const DetailPage = (props) => {
               paddingX={8}
               paddingY={8}
               marginBottom={4}
-              borderWidth="1px"
-              borderRadius="lg"
               w="45%"
               maxW="350px"
               flexWrap="wrap"
               direction="column"
-              boxShadow="1px 1px 8px #ccc"
-              transition="box-shadow 150ms ease"
-              _hover={{
-                boxShadow: "1px 1px 10px #aaa",
-              }}
             >
               <Heading as="h3" fontSize="22px">
                 Stats
@@ -255,26 +246,19 @@ const DetailPage = (props) => {
               paddingX={8}
               paddingY={8}
               marginBottom={4}
-              borderWidth="1px"
-              borderRadius="lg"
               w="45%"
               maxW="350px"
               flexWrap="wrap"
               direction="column"
               justify="flex-start"
-              boxShadow="1px 1px 8px #ccc"
-              transition="box-shadow 150ms ease"
-              _hover={{
-                boxShadow: "1px 1px 10px #aaa",
-              }}
             >
               <Heading as="h3" fontSize="22px">
                 Moves
               </Heading>
               {states.pokemon.moves ? (
-                <Flex flexWrap="wrap" direction="column">
+                <Flex flexWrap="wrap" direction="column" maxH="170px">
                   {states.pokemon.moves.map((move, i) => {
-                    if (i < 5) {
+                    if (i < 6) {
                       // requests.getMoveByName(move.move.name);
                       return (
                         <Text key={i}>
@@ -291,6 +275,11 @@ const DetailPage = (props) => {
               )}
             </Flex>
           </Flex>
+          {/* {states.pokemon.id && (
+            <Image
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${states.pokemon.id}.png`}
+            />
+          )} */}
         </Flex>
       )}
     </Flex>
