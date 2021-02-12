@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Flex,
@@ -8,19 +8,16 @@ import {
   IconButton,
   Image,
   Text,
-
 } from "@chakra-ui/react";
 import { CgCloseO, CgEye, CgPokemon } from "react-icons/cg";
 import { goToDetails } from "../../routes/Coordinator";
 import PokeContext from "../../context/pokeContext";
 
-
 const CardPokemon = (props) => {
   const history = useHistory();
   const [pokemon, setPokemon] = useState({});
   const [pokemonId, setPokemonId] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { states, requests } = useContext(PokeContext);
+  const { states, setters, requests } = useContext(PokeContext);
   // const { size, variant, ...rest } = props;
   // const styles = useStyleConfig("CardPokemon", { size, variant });
 
@@ -30,14 +27,13 @@ const CardPokemon = (props) => {
   }, []);
 
   const getPokemon = async () => {
-    setters.setIsLoading(true);
+    //setters.setIsLoading(true);
     try {
       const response = await axios.get(props.pokemon.url);
-      console.log(response.data);
+      //console.log(response.data);
       setPokemon(response.data);
-      requests.replaceUrl(response.data)
-      setPokemonId(response.data.id)
-      setIsLoading(false);
+      requests.replaceUrl(response.data);
+      setPokemonId(response.data.id);
     } catch (err) {
       console.log(err);
     }
@@ -56,7 +52,6 @@ const CardPokemon = (props) => {
 
   return (
     <>
-      {changeCard(props.pokemon.name)}
       {states.isLoading ? (
         ""
       ) : (
@@ -78,7 +73,12 @@ const CardPokemon = (props) => {
           <Heading as="h4" fontSize="22px">
             {props.pokemon.name[0].toUpperCase() + props.pokemon.name.substr(1)}
           </Heading>
-          {states.pokemon&&<Image maxH="150px" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`} />}
+          {states.pokemon && (
+            <Image
+              maxH="150px"
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}
+            />
+          )}
           <Flex justify="center">
             {props.visible ? (
               <IconButton

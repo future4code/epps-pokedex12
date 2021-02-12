@@ -1,11 +1,11 @@
-import { SimpleGrid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid, Spinner, useToast } from "@chakra-ui/react";
 
 import PokeContext from "../context/pokeContext";
 
 import { useHistory } from "react-router-dom";
 
 import { goToPokedex } from "../routes/Coordinator";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CardPokemon from "../components/card/CardPokemon";
 
 import Btn from "../components/sample/Button";
@@ -33,7 +33,7 @@ const HomePage = () => {
       console.log(states.pokemon);
 
       setters.setPokedex(newPokedex);
-      localStorage.setItem(`${newPokemon.name}`, JSON.stringify(newPokedex));
+      localStorage.setItem("pokedex", JSON.stringify(newPokedex));
 
       toast({
         title: "Success!",
@@ -55,7 +55,7 @@ const HomePage = () => {
           newPokemon.name[0].toUpperCase() + newPokemon.name.substr(1)
         } is already on the pokéDex!`,
         status: "error",
-        duration: 5000,
+        duration: 1000,
         isClosable: true,
       });
     }

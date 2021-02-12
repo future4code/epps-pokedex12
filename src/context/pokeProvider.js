@@ -12,7 +12,7 @@ const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
   const [stringImg, setStringImg] = useState([]);
-  const [pokemon, setPokemon] = useState({...pokemons,artWork:""});
+  const [pokemon, setPokemon] = useState({ ...pokemons, artWork: "" });
   const [moves, setMoves] = useState([]);
   const [move, setMove] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -36,10 +36,10 @@ const PokeProvider = (props) => {
   };
 
   const replaceUrl = (poke) => {
-    const aux1 = JSON.stringify(poke.sprites.other)
-    const aux2 = aux1.replace("official-artwork", "official_artwork")
-    setStringImg(JSON.parse(aux2))
-  }
+    const aux1 = JSON.stringify(poke.sprites.other);
+    const aux2 = aux1.replace("official-artwork", "official_artwork");
+    setStringImg(JSON.parse(aux2));
+  };
   // TO DO: GET POKEMON BY ID
   const getPokemon = async (pokeName) => {
     // console.log(pokeName);
@@ -56,21 +56,13 @@ const PokeProvider = (props) => {
   };
 
   const removeFromPokedex = (poke) => {
-    setters.setPokedex(
-      states.pokedex.filter((pokemon) => {
-        return pokemon.name !== poke.name;
-      })
-    );
-    localStorage.removeItem("pokedex");
-    setters.setPokedex(localStorage.getItem("pokedex"));
+    setters.setPokedex(states.pokedex.splice(poke.name, 1));
+    // states.pokedex.filter((pokemon) => {
+    //   return pokemon.name !== poke.name;
+    // })
 
-    toast({
-      title: "Success!",
-      description: `${poke.name} was removed from the pokéDex!`,
-      status: "success",
-      duration: 1000,
-      isClosable: true,
-    });
+    localStorage.setItem("pokedex", JSON.stringify(states.pokedex));
+    //setters.setPokedex(localStorage.getItem("pokedex"));
   };
 
   const getMoveByName = async (moveName) => {
@@ -92,8 +84,15 @@ const PokeProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
-  const states = { pokemons, pokedex, isLoading, pokemon, moves, move, stringImg };
+  const states = {
+    pokemons,
+    pokedex,
+    isLoading,
+    pokemon,
+    moves,
+    move,
+    stringImg,
+  };
   const setters = {
     setPokemons,
     setPokedex,
@@ -102,7 +101,6 @@ const PokeProvider = (props) => {
     setMove,
     removeFromPokedex,
     setIsLoading,
-
   };
   const requests = { getPokemons, getPokemon, getMoveByName, replaceUrl };
 
