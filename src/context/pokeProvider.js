@@ -12,7 +12,7 @@ const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
   const [stringImg, setStringImg] = useState([]);
-  const [pokemon, setPokemon] = useState({ ...pokemons, artWork: "" });
+  const [pokemon, setPokemon] = useState({});
   const [moves, setMoves] = useState([]);
   const [move, setMove] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +50,7 @@ const PokeProvider = (props) => {
         `https://pokeapi.co/api/v2/pokemon/${pokeName}/`
       );
       setPokemon(response.data);
+      console.log(pokemon);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
