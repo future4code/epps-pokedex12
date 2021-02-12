@@ -76,6 +76,7 @@ const HomePage = () => {
                 <CardPokemon
                   key={pokemon.name}
                   pokemon={pokemon}
+                  pokemonId={pokemon.id}
                   addToPokedex={() => addToPokedex(pokemon)}
                   visible={false}
                 />

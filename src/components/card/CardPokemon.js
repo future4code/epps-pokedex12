@@ -17,7 +17,7 @@ const CardPokemon = (props) => {
   const history = useHistory();
   const [pokemon, setPokemon] = useState({});
   const [pokemonId, setPokemonId] = useState("");
-  const { states, setters, requests } = useContext(PokeContext);
+  const { states, requests } = useContext(PokeContext);
   // const { size, variant, ...rest } = props;
   // const styles = useStyleConfig("CardPokemon", { size, variant });
 
@@ -73,7 +73,7 @@ const CardPokemon = (props) => {
           <Heading as="h4" fontSize="22px">
             {props.pokemon.name[0].toUpperCase() + props.pokemon.name.substr(1)}
           </Heading>
-          {states.pokemon && (
+          {pokemonId && (
             <Image
               maxH="150px"
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}

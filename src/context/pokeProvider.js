@@ -27,7 +27,7 @@ const PokeProvider = (props) => {
       setPokemons(
         response.data.results
           .sort(() => Math.random() - Math.random())
-          .slice(0, 10)
+          .slice(0, 30)
       );
       setIsLoading(false);
     } catch (err) {
@@ -35,14 +35,15 @@ const PokeProvider = (props) => {
     }
   };
 
+  // Official Artwork url parsing
   const replaceUrl = (poke) => {
     const aux1 = JSON.stringify(poke.sprites.other);
     const aux2 = aux1.replace("official-artwork", "official_artwork");
     setStringImg(JSON.parse(aux2));
   };
+
   // TO DO: GET POKEMON BY ID
   const getPokemon = async (pokeName) => {
-    // console.log(pokeName);
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -56,13 +57,16 @@ const PokeProvider = (props) => {
   };
 
   const removeFromPokedex = (poke) => {
-    setters.setPokedex(states.pokedex.splice(poke.name, 1));
-    // states.pokedex.filter((pokemon) => {
-    //   return pokemon.name !== poke.name;
-    // })
+    states.pokedex.filter((pokemon, i) => {
+      if (pokemon.name === poke.name) {
+        return states.pokedex.splice(i, 1);
+      }
+    });
+
+    setters.setPokedex(states.pokedex);
 
     localStorage.setItem("pokedex", JSON.stringify(states.pokedex));
-    //setters.setPokedex(localStorage.getItem("pokedex"));
+    window.location.reload();
   };
 
   const getMoveByName = async (moveName) => {
@@ -81,7 +85,6 @@ const PokeProvider = (props) => {
 
   useEffect(() => {
     getPokemons();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const states = {
