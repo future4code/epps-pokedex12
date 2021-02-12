@@ -28,6 +28,7 @@ const DetailPage = (props) => {
     requests.getPokemon(pathParams.pokeName);
   }, [pathParams.pokeName]);
 
+  // Tag changer for pokemon's types
   const colorChanger = (pokeType) => {
     switch (pokeType) {
       case "fire":
@@ -270,7 +271,8 @@ const DetailPage = (props) => {
               {states.pokemon.moves ? (
                 <Flex flexWrap="wrap" direction="column">
                   {states.pokemon.moves.map((move, i) => {
-                    if (i < 9) {
+                    if (i < 5) {
+                      // requests.getMoveByName(move.move.name);
                       return (
                         <Text key={i}>
                           {move.move.name[0].toUpperCase() +

@@ -30,7 +30,7 @@ const CardPokemon = (props) => {
   }, []);
 
   const getPokemon = async () => {
-    setIsLoading(true);
+    setters.setIsLoading(true);
     try {
       const response = await axios.get(props.pokemon.url);
       console.log(response.data);
@@ -57,11 +57,10 @@ const CardPokemon = (props) => {
   return (
     <>
       {changeCard(props.pokemon.name)}
-      {isLoading ? (
+      {states.isLoading ? (
         ""
       ) : (
-
-          <GridItem
+        <GridItem
           padding="10px"
           margin="10px"
           borderWidth="1px"
@@ -69,6 +68,7 @@ const CardPokemon = (props) => {
           align="center"
           boxShadow="1px 1px 8px #ccc"
           transition="box-shadow 150ms ease"
+          maxWidth="220px"
           // sx={styles}
           // {...rest}
           _hover={{
@@ -102,7 +102,7 @@ const CardPokemon = (props) => {
               colorScheme="blackAlpha"
             />
           </Flex>
-        </GridItem>        
+        </GridItem>
       )}
     </>
   );
