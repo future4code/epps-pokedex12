@@ -13,12 +13,11 @@ const PokedexPage = (props) => {
   const toast = useToast();
 
   let localPokedex = localStorage.getItem("pokedex");
-  console.log(localPokedex);
 
   useEffect(() => {
     localPokedex = JSON.parse(localPokedex);
     if (localPokedex) setters.setPokedex(localPokedex);
-  });
+  }, []);
 
   const removeTest = (pokemon) => {
     setters.removeFromPokedex(pokemon);
