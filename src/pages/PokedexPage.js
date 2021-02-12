@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-
-import { Spinner, SimpleGrid } from "@chakra-ui/react";
-
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";

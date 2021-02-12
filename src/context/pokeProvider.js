@@ -11,7 +11,8 @@ import { useToast } from "@chakra-ui/react";
 const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
-  const [pokemon, setPokemon] = useState({});
+  const [stringImg, setStringImg] = useState([]);
+  const [pokemon, setPokemon] = useState({...pokemons,artWork:""});
   const [moves, setMoves] = useState([]);
   const [move, setMove] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ const PokeProvider = (props) => {
       setPokemons(
         response.data.results
           .sort(() => Math.random() - Math.random())
-          .slice(0, 20)
+          .slice(0, 10)
       );
       setIsLoading(false);
     } catch (err) {
@@ -34,6 +35,11 @@ const PokeProvider = (props) => {
     }
   };
 
+  const replaceUrl = (poke) => {
+    const aux1 = JSON.stringify(poke.sprites.other)
+    const aux2 = aux1.replace("official-artwork", "official_artwork")
+    setStringImg(JSON.parse(aux2))
+  }
   // TO DO: GET POKEMON BY ID
   const getPokemon = async (pokeName) => {
     // console.log(pokeName);
@@ -86,7 +92,8 @@ const PokeProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const states = { pokemons, pokedex, isLoading, pokemon, moves, move };
+
+  const states = { pokemons, pokedex, isLoading, pokemon, moves, move, stringImg };
   const setters = {
     setPokemons,
     setPokedex,
@@ -95,8 +102,9 @@ const PokeProvider = (props) => {
     setMove,
     removeFromPokedex,
     setIsLoading,
+
   };
-  const requests = { getPokemons, getPokemon, getMoveByName };
+  const requests = { getPokemons, getPokemon, getMoveByName, replaceUrl };
 
   const data = { states, setters, requests };
 

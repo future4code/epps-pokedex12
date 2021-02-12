@@ -143,6 +143,8 @@ const DetailPage = (props) => {
         return <Tag>{pokeType}</Tag>;
     }
   };
+// .other
+
 
   return (
     <Flex
@@ -192,6 +194,7 @@ const DetailPage = (props) => {
                   <Flex justify="center">
                     <Image src={states.pokemon.sprites.front_shiny} />
                     <Image src={states.pokemon.sprites.back_shiny} />
+                    
                   </Flex>
                 </Box>
               </Flex>
