@@ -8,7 +8,7 @@ import {
   Box,
   Tag,
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
 import Header from "../components/Header";
@@ -143,8 +143,6 @@ const DetailPage = (props) => {
         return <Tag>{pokeType}</Tag>;
     }
   };
-// .other
-
 
   return (
     <Flex
@@ -187,6 +185,12 @@ const DetailPage = (props) => {
                     <Image src={states.pokemon.sprites.back_default} />
                   </Flex>
                 </Box>
+                {states.pokemon.id && (
+                  <Image
+                    maxH="150px"
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${states.pokemon.id}.png`}
+                  />
+                )}
                 <Box w="45%" paddingBottom="4">
                   <Heading as="h4" fontSize="20px" textAlign="center">
                     Shiny
@@ -194,7 +198,6 @@ const DetailPage = (props) => {
                   <Flex justify="center">
                     <Image src={states.pokemon.sprites.front_shiny} />
                     <Image src={states.pokemon.sprites.back_shiny} />
-                    
                   </Flex>
                 </Box>
               </Flex>

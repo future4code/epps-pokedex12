@@ -7,19 +7,18 @@ import Header from "../components/Header";
 import Btn from "../components/sample/Button";
 import PokeContext from "../context/pokeContext";
 
-const PokedexPage = (props) => {
+const PokedexPage = () => {
   const { states, setters } = useContext(PokeContext);
   const history = useHistory();
   const toast = useToast();
 
-  let localPokedex = localStorage.getItem("pokedex");
-
   useEffect(() => {
+    let localPokedex = localStorage.getItem("pokedex");
     localPokedex = JSON.parse(localPokedex);
     if (localPokedex) setters.setPokedex(localPokedex);
   }, []);
 
-  const removeTest = (pokemon) => {
+  const removePokemon = (pokemon) => {
     setters.removeFromPokedex(pokemon);
     toast({
       title: "Success!",
@@ -45,7 +44,7 @@ const PokedexPage = (props) => {
               <CardPokemon
                 key={pokemon.url}
                 pokemon={pokemon}
-                removePokedex={() => removeTest(pokemon)}
+                removePokedex={() => removePokemon(pokemon)}
                 visible={true}
               />
             );
