@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import CardPokemon from "../components/card/CardPokemon";
 import { goHome } from "../routes/Coordinator";
@@ -10,7 +10,7 @@ import PokeContext from "../context/pokeContext";
 const PokedexPage = (props) => {
   const { states, setters } = useContext(PokeContext);
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
+
   // TO DO: LOADING STATE
 
   // TO DO: GO TO POKEMON DETAILS
@@ -54,7 +54,7 @@ const PokedexPage = (props) => {
         padding="10px"
         gap={5}
         minChildWidth="180px"
-        maxChildWidth="220px"
+        
       >
           {states.isLoading ? (
             <Spinner size="xl" />

@@ -21,7 +21,7 @@ import { goHome, goToPokedex } from "../routes/Coordinator";
 const DetailPage = (props) => {
   const history = useHistory();
   const pathParams = useParams();
-  const { states, setters, requests } = useContext(PokeContext);
+  const { states, requests } = useContext(PokeContext);
 
   // TO DO: USEEFFECT GET POKEMON BY ID
   useEffect(() => {
@@ -142,6 +142,8 @@ const DetailPage = (props) => {
         return <Tag>{pokeType}</Tag>;
     }
   };
+// .other
+
 
   return (
     <Flex
@@ -191,6 +193,7 @@ const DetailPage = (props) => {
                   <Flex justify="center">
                     <Image src={states.pokemon.sprites.front_shiny} />
                     <Image src={states.pokemon.sprites.back_shiny} />
+                    
                   </Flex>
                 </Box>
               </Flex>

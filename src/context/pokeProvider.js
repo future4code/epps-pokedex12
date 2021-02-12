@@ -10,7 +10,8 @@ import { useEffect } from "react";
 const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
   const [pokedex, setPokedex] = useState([]);
-  const [pokemon, setPokemon] = useState({});
+  const [stringImg, setStringImg] = useState([]);
+  const [pokemon, setPokemon] = useState({...pokemons,artWork:""});
   const [isLoading, setIsLoading] = useState(false);
   const base_url = BASE_URL;
 
@@ -22,7 +23,7 @@ const PokeProvider = (props) => {
       setPokemons(
         response.data.results
           .sort(() => Math.random() - Math.random())
-          .slice(0, 50)
+          .slice(0, 10)
       );
       setIsLoading(false);
     } catch (err) {
@@ -30,6 +31,11 @@ const PokeProvider = (props) => {
     }
   };
 
+  const replaceUrl = (poke) => {
+    const aux1 = JSON.stringify(poke.sprites.other)
+    const aux2 = aux1.replace("official-artwork", "official_artwork")
+    setStringImg(JSON.parse(aux2))
+  }
   // TO DO: GET POKEMON BY ID
   const getPokemon = async (pokeName) => {
     console.log(pokeName);
@@ -50,9 +56,9 @@ const PokeProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const states = { pokemons, pokedex, isLoading, pokemon };
+  const states = { pokemons, pokedex, isLoading, pokemon, stringImg };
   const setters = { setPokemons, setPokedex, setPokemon };
-  const requests = { getPokemons, getPokemon };
+  const requests = { getPokemons, getPokemon, replaceUrl };
 
   const data = { states, setters, requests };
 

@@ -1,4 +1,4 @@
-import { Flex, Grid, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 
 import PokeContext from "../context/pokeContext";
 
