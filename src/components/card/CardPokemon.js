@@ -1,27 +1,17 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  IconButton,
-  Image,
-  useStyleConfig,
-} from "@chakra-ui/react";
+import { Flex, GridItem, Heading, IconButton, Image } from "@chakra-ui/react";
 import { CgCloseO, CgEye, CgPokemon } from "react-icons/cg";
 import { goToDetails } from "../../routes/Coordinator";
 import PokeContext from "../../context/pokeContext";
 
 const CardPokemon = (props) => {
   const history = useHistory();
-  const { states, setters, requests } = useContext(PokeContext);
+  const { states, setters } = useContext(PokeContext);
   const [pokemon, setPokemon] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const { size, variant, ...rest } = props;
-  const styles = useStyleConfig("CardPokemon", { size, variant });
+  //const { size, variant, ...rest } = props;
+  //const styles = useStyleConfig("CardPokemon", { size, variant });
 
   useEffect(() => {
     getPokemon();
@@ -29,12 +19,12 @@ const CardPokemon = (props) => {
   }, []);
 
   const getPokemon = async () => {
-    setIsLoading(true);
+    setters.setIsLoading(true);
     try {
       const response = await axios.get(props.pokemon.url);
       // console.log(response.data);
       setPokemon(response.data);
-      setIsLoading(false);
+      setters.setIsLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -57,8 +47,7 @@ const CardPokemon = (props) => {
       {states.isLoading ? (
         ""
       ) : (
-
-          <GridItem
+        <GridItem
           padding="10px"
           margin="10px"
           maxH="200px"
@@ -67,6 +56,7 @@ const CardPokemon = (props) => {
           align="center"
           boxShadow="1px 1px 8px #ccc"
           transition="box-shadow 150ms ease"
+          maxWidth="220px"
           // sx={styles}
           // {...rest}
           _hover={{
@@ -102,7 +92,7 @@ const CardPokemon = (props) => {
               colorScheme="blackAlpha"
             />
           </Flex>
-        </GridItem>        
+        </GridItem>
       )}
     </>
   );

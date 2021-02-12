@@ -1,5 +1,4 @@
-
-import { Flex, Spinner, useToast, Grid, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Spinner, useToast, SimpleGrid } from "@chakra-ui/react";
 
 import PokeContext from "../context/pokeContext";
 
@@ -34,12 +33,13 @@ const HomePage = () => {
       console.log(states.pokemon);
 
       setters.setPokedex(newPokedex);
+      localStorage.setItem(`${newPokemon.name}`, JSON.stringify(newPokedex));
 
       toast({
         title: "Success!",
         description: `${newPokemon.name} was added to the pokéDex!`,
         status: "success",
-        duration: 5000,
+        duration: 1000,
         isClosable: true,
       });
 
@@ -66,28 +66,23 @@ const HomePage = () => {
       <Header>
         <Btn goTo={() => goToPokedex(history)}>pokéDex</Btn>
       </Header>
-      <SimpleGrid
-        padding="10px"
-        gap={5}
-        as="main"
-        minChildWidth="180px"
-      >
+      <SimpleGrid padding="10px" gap={5} as="main" minChildWidth="180px">
         {states.isLoading ? (
           <Spinner size="xl" />
         ) : (
-            <>
-              {states.pokemons.map((pokemon) => {
-                return (
-                  <CardPokemon
-                    key={pokemon.name}
-                    pokemon={pokemon}
-                    addToPokedex={() => addToPokedex(pokemon)}
-                    visible={false}
-                  />
-                );
-              })}
-            </>
-          )}
+          <>
+            {states.pokemons.map((pokemon) => {
+              return (
+                <CardPokemon
+                  key={pokemon.name}
+                  pokemon={pokemon}
+                  addToPokedex={() => addToPokedex(pokemon)}
+                  visible={false}
+                />
+              );
+            })}
+          </>
+        )}
       </SimpleGrid>
     </>
   );
