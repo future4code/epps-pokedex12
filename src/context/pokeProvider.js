@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { BASE_URL } from "../parameters";
 import { useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
 
 const PokeProvider = (props) => {
   const [pokemons, setPokemons] = useState([]);
@@ -15,6 +16,7 @@ const PokeProvider = (props) => {
   const [move, setMove] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const base_url = BASE_URL;
+  const toast = useToast();
 
   // TO DO: GETPOKEMONLIST
   const getPokemons = async () => {
@@ -47,6 +49,24 @@ const PokeProvider = (props) => {
     }
   };
 
+  const removeFromPokedex = (poke) => {
+    setters.setPokedex(
+      states.pokedex.filter((pokemon) => {
+        return pokemon.name !== poke.name;
+      })
+    );
+    localStorage.removeItem("pokedex");
+    setters.setPokedex(localStorage.getItem("pokedex"));
+
+    toast({
+      title: "Success!",
+      description: `${poke.name} was removed from the pokéDex!`,
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+  };
+
   const getMoveByName = async (moveName) => {
     try {
       const response = await axios.get(
@@ -67,7 +87,15 @@ const PokeProvider = (props) => {
   }, []);
 
   const states = { pokemons, pokedex, isLoading, pokemon, moves, move };
-  const setters = { setPokemons, setPokedex, setPokemon, setMoves, setMove };
+  const setters = {
+    setPokemons,
+    setPokedex,
+    setPokemon,
+    setMoves,
+    setMove,
+    removeFromPokedex,
+    setIsLoading,
+  };
   const requests = { getPokemons, getPokemon, getMoveByName };
 
   const data = { states, setters, requests };

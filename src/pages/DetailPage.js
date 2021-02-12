@@ -21,7 +21,7 @@ import { goHome, goToPokedex } from "../routes/Coordinator";
 const DetailPage = (props) => {
   const history = useHistory();
   const pathParams = useParams();
-  const { states, setters, requests } = useContext(PokeContext);
+  const { states, requests } = useContext(PokeContext);
 
   // TO DO: USEEFFECT GET POKEMON BY ID
   useEffect(() => {
